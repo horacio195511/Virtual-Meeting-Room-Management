@@ -1,15 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <button v-on:click="main">Home</button>
+  <component :is="present"></component>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Calendar from './components/Calendar.vue';
+import CancelMeeting from './components/CancelMeeting';
+import CreateMeeting from './components/CreateMeeting';
+import CreateReminder from './components/CreateReminder';
+import DateInfo from './components/DateInfo.vue';
+import ForgetPassword from './components/ForgetPassword';
+import FullMeetingInfo from './components/FullMeetingInfo';
+import Login from './components/Login';
+import Main from './components/Main';
+import MeetingRoomInfo from './components/MeetingRoomInfo'
+import Signup from './components/Signup'
+import SimMeetInfo from './components/SimInfo.vue';
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Calendar,
+    CancelMeeting,
+    CreateMeeting,
+    CreateReminder,
+    DateInfo,
+    ForgetPassword,
+    FullMeetingInfo,
+    Login,
+    Main,
+    MeetingRoomInfo,
+    Signup,
+    SimMeetInfo,
   },
 };
 </script>
