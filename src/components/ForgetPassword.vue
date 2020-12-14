@@ -1,22 +1,27 @@
 <template>
+    <form>
     <table>
-      <form>
         <tr>
           <td><label for="email">email</label></td>
           <td><input type="email" placeholder="ex:xxx@mail.com" /></td>
         </tr>
         <tr>
           <!--not complete yet-->
-          <td><input type="button" @click="forgetpassword" /></td>
+          <td><button @click="sendPassword"></button></td>
         </tr>
-      </form>
     </table>
+    </form>
 </template>
 
 <script>
 export default {
+  name: 'ForgetPassword',
+  methods: {
+    sendPassword() {
 
-}
+    },
+  },
+};
 </script>
 
 <style>

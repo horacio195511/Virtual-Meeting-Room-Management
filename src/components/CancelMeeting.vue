@@ -6,9 +6,9 @@
 
 <script>
 export default {
-    name: 'CancelMeeting',
-    props:['meeting'],
-}
+  name: 'CancelMeeting',
+  props: ['meeting'],
+};
 </script>
 
 <style>

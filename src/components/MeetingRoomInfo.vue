@@ -7,8 +7,8 @@
 
 <script>
 export default {
-    name: 'MeetingRoomInfo'
-}
+  name: 'MeetingRoomInfo.vue',
+};
 </script>
 
 <style>

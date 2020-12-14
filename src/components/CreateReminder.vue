@@ -1,14 +1,14 @@
 <template>
   <div>
-      <table>
-          <form>
+    <form>
+        <table>
               <tr>
                   <td><label for="topic">主題</label></td>
                   <td><input id="topic" type="text"></td>
               </tr>
               <tr>
-                  <td><label for="topic">主持人</label></td>
-                  <td><input id="topic" type="text"></td>
+                  <td><label for="host">主持人</label></td>
+                  <td><input id="host" type="text"></td>
               </tr>
               <tr>
                   <td><label for="start">開始</label></td>
@@ -26,16 +26,19 @@
                   <td><label for="remind">提醒</label></td>
                   <td><input id="remind" type="datetime-local"></td>
               </tr>
-          </form>
-      </table>
+              <tr>
+                  <td><input type="button" value="提交"></td>
+              </tr>
+        </table>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'CreateReminder',
-    props: ['meeting'],
-}
+  name: 'CreateReminder',
+  props: ['meeting'],
+};
 </script>
 
 <style>

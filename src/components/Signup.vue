@@ -1,6 +1,6 @@
 <template>
+    <form>
     <table>
-      <form>
         <tr>
           <td><label for="name">姓名</label></td>
           <td><input id="name" type="text" /></td>
@@ -30,14 +30,14 @@
         <tr>
           <td><button type="button" v-on:click="signup">註冊</button></td>
         </tr>
-      </form>
     </table>
+    </form>
 </template>
 
 <script>
 export default {
-    name: 'Signup'
-}
+  name: 'Signup',
+};
 </script>
 
 <style>
