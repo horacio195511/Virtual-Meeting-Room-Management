@@ -24,8 +24,12 @@
         </tr>
         <tr>
           <td>參與人</td>
-          <td><h5 v-for="attendee in meeting.attendee"
-            :key="attendee.id">{{ attendee.user }} </h5></td>
+          <td>
+            <div
+              v-for="attendee in meeting.attendee"
+              :key="attendee.id"
+            >{{ attendee.user }}</div>
+          </td>
         </tr>
         <tr>
           <td></td>

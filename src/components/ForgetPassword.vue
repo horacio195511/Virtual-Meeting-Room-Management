@@ -1,16 +1,14 @@
 <template>
-    <form>
-    <table>
-        <tr>
-          <td><label for="email">email</label></td>
-          <td><input type="email" placeholder="ex:xxx@mail.com" /></td>
-        </tr>
-        <tr>
-          <!--not complete yet-->
-          <td><button @click="sendPassword"></button></td>
-        </tr>
-    </table>
-    </form>
+  <table>
+    <tr>
+      <td><label for="email">email</label></td>
+      <td><input type="email" placeholder="ex:xxx@mail.com" /></td>
+    </tr>
+    <tr>
+      <!--not complete yet-->
+      <td><button @click="sendPassword"></button></td>
+    </tr>
+  </table>
 </template>
 
 <script>
