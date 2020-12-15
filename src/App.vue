@@ -1,33 +1,25 @@
 <template>
   <button v-on:click="home">Home</button>
-    <component :is="present" @change-view="present = $event"></component>
+  <component :is="present" @change-view="present = $event"></component>
 </template>
 
 <script>
-import CancelMeeting from './components/CancelMeeting.vue';
-import CreateMeeting from './components/CreateMeeting.vue';
-import CreateReminder from './components/CreateReminder.vue';
 import ForgetPassword from './components/ForgetPassword.vue';
-import FullMeetingInfo from './components/FullMeetingInfo.vue';
 import Login from './components/Login.vue';
 import Main from './components/Main.vue';
 import MeetingRoomInfo from './components/MeetingRoomInfo.vue';
+import CreateMeeting from './components/CreateMeeting.vue';
 import Signup from './components/Signup.vue';
-import SimMeetInfo from './components/SimMeetInfo.vue';
 
 export default {
   name: 'App',
   components: {
-    CancelMeeting,
-    CreateMeeting,
-    CreateReminder,
     ForgetPassword,
-    FullMeetingInfo,
     Login,
     Main,
     MeetingRoomInfo,
+    CreateMeeting,
     Signup,
-    SimMeetInfo,
   },
   data() {
     return {

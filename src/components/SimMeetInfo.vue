@@ -1,6 +1,10 @@
 <template>
-    <h6 @click="$emit('full-meeting-info', meeting)">
-        {{ shortInfo }}</h6>
+    <h6
+      @click="$emit('full-meeting-info', meeting)"
+      class="meeting"
+    >
+      {{ shortInfo }}
+    </h6>
 </template>
 
 <script>
@@ -22,3 +26,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.meeting{
+  height:20%;
+  border-bottom: 2px solid rgb(0, 38, 255);
+  padding: 3px;
+  margin: 3px;
+}
+</style>
