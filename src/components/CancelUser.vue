@@ -1,35 +1,15 @@
 <template>
-  <td>
-      <div v-for="user in usersArr" :key="user">
-        <button @click="disinvite(user)">X</button><label>{{ user }}</label>
-      </div>
-      <input type="text" @keypress="onEnterPress" v-model="newUser">
-  </td>
+  <div>
+    <button @click="$emit('disinvite', attendee)">X</button><label>{{ attendee.user }}</label>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'CancelUser',
-  props: ['attendees'],
-  data() {
-    return {
-      usersObj: this.attendees,
-      newUser: '',
-    };
-  },
-  computed:{
-    usersArr (){
-      let tmp = [];
-      this.usersObj.forEach(element => {
-        tmp.push(element.user);
-      });
-    }
-  },
+  props: ['attendee'],
   methods: {
     // there is something make the page reload !!
-    disinvite(user) {
-      this.usersArr.slice(this.users.indexOf(),1)
-    },
     onEnterPress() {
       let e;
       if (!e) e = window.event;

@@ -16,8 +16,8 @@ export default {
       let temp;
       if (this.meeting !== undefined) {
         const { topic } = this.meeting.meeting;
-        const { date } = this.meeting.meeting;
-        temp = `${topic}@${date.getHours()}:${date.getMinutes()}`;
+        const { start } = this.meeting.meeting;
+        temp = `${topic}@${start.getHours()}:${start.getMinutes()}`;
       } else {
         temp = '';
       }

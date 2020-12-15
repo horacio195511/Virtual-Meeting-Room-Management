@@ -24,7 +24,15 @@
       </tr>
       <tr>
           <td><label>參與人</label></td>
-          <CancelUser :attendees="attendee"></CancelUser>
+          <td>
+            <CancelUser
+              v-for="attendee in attendees"
+              :attendee="attendee"
+              :key="attendee.id"
+              @disinvite="disinvite">
+            </CancelUser>
+            <input type="text" v-model="newUser" @keydown="newAttendee($event)">
+          </td>
       </tr>
       <tr>
           <td></td>
@@ -43,6 +51,12 @@ export default {
   components: {
     CancelUser,
   },
+  data() {
+    return {
+      currentMeeting: this.meeting,
+      newUser: '',
+    };
+  },
   methods: {
     create() {
       // call the api to store the meeting
@@ -50,6 +64,26 @@ export default {
       // if meeting create was successful, create reminder
       // data is bind to the form
       this.$emit('create-reminder');
+    },
+    disinvite(attendee) {
+      // remove the user from the list of attendee in current meeting
+      const index = this.currentMeeting.attendee.indexOf(attendee);
+      this.currentMeeting.attendee.splice(index, 1);
+      this.$forceUpdate();
+      // send email to the user who are disinvite
+    },
+    newAttendee(event) {
+      const keyCode = event.key;
+      if (keyCode === 'Enter') {
+        // Enter pressed
+        // add the newUser to the list of attendee
+        // push the last id+1 to the array
+        const newID = this.currentMeeting.attendee[this.currentMeeting.attendee.length - 1].id + 1;
+        this.currentMeeting.attendee.push({ id: newID, user: this.newUser });
+        this.newUser = '';
+        this.$forceUpdate();
+        // we somehow have to invite the new user, or just send email to all of them
+      }
     },
   },
   computed: {
@@ -89,7 +123,7 @@ export default {
       }
       return '';
     },
-    attendee() {
+    attendees() {
       if (this.meeting !== undefined) {
         return this.meeting.attendee;
       }

@@ -19,7 +19,7 @@
               @full-meeting-info="below='FullMeetingInfo'">
             </DateInfo>
             </tr>
-            <tr class="meetingRow">
+            <tr>
             <DateInfo
               v-for="date in cal[0]"
               :key="date.id"
@@ -123,7 +123,7 @@ export default {
   data() {
     return {
       currentDate: this.initialdate,
-      currentMonth: this.initialdate.getMonth(),
+      currentMonth: this.initialdate.getMonth() + 1,
       currentYear: this.initialdate.getFullYear(),
       cal: this.calGenerator(this.initialdate),
       // meeting request should be done here
@@ -149,12 +149,12 @@ export default {
     meetingRequest() {
       // get meeting list of the specific month from server
       const rawMeetings = [
-        { date: new Date(2020, 12, 18, 12, 30), topic: 'math' },
-        { date: new Date(2020, 12, 21, 11, 10), topic: 'science' },
-        { date: new Date(2020, 12, 22, 5, 20), topic: 'architecture' },
-        { date: new Date(2020, 12, 15, 25, 6), topic: 'physics' },
-        { date: new Date(2020, 12, 11, 20, 40), topic: 'engineer' },
-        { date: new Date(2020, 12, 15, 30, 70), topic: 'software' },
+        { start: new Date(2020, 12, 18, 12, 30), topic: 'math' },
+        { start: new Date(2020, 12, 21, 11, 10), topic: 'science' },
+        { start: new Date(2020, 12, 22, 5, 20), topic: 'architecture' },
+        { start: new Date(2020, 12, 15, 25, 6), topic: 'physics' },
+        { start: new Date(2020, 12, 11, 20, 40), topic: 'engineer' },
+        { start: new Date(2020, 12, 15, 30, 70), topic: 'software' },
       ];
       // sort it according to day
       // ex:
@@ -169,7 +169,7 @@ export default {
       }
       let i = 0;
       rawMeetings.forEach((element) => {
-        meetingsForDate[element.date.getDate()].push({ id: i += 1, meeting: element });
+        meetingsForDate[element.start.getDate()].push({ id: i += 1, meeting: element });
       });
       return meetingsForDate;
     },
@@ -239,9 +239,6 @@ export default {
   border-bottom: 2px solid black;
   border-right: 2px solid black;
   border-left: 2px solid black;
-}
-.meetingRow{
-  height: 100px;
 }
 .component{
   display: block;

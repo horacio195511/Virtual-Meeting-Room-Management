@@ -1,6 +1,6 @@
 <template>
 <div>
-  <table>
+  <table class="center">
     <tr>
       <td><label for="acccount">帳號</label></td>
       <td><input id="account" type="text"></td>
@@ -29,6 +29,13 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.center{
+  display: block;
+  margin: auto;
+  width: 30%;
+}
+td{
+  width: 30%;
+}
 </style>

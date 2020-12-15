@@ -1,7 +1,7 @@
 <template>
-    <td :class="style">
-      <div v-if="date !== undefined" class="no-pad">{{ date }}</div>
-      <div>
+    <td>
+      <div v-if="date !== undefined" class="date">{{ date }}</div>
+      <div class="meetings" v-else-if="date === undefined">
         <sim-meet-info
           v-for='meeting in meetings'
           :key='meeting.id'
@@ -32,17 +32,17 @@ export default {
 
 <style scoped>
   .date{
-    height: 5%;
     border: 2px solid gray;
-    padding: 3px;
-    margin: 3px;
+    padding: 1px;
+    margin: 0px;
   }
   .meetings{
-    height: 100%;
-    border: 2px solid black;
-    padding: 5px
-  }
-  .no-pad{
+    width: 90%;
+    border: 0px solid black;
     padding: 0px;
+    overflow: auto;
+  }
+  td{
+    width: 10%;
   }
 </style>
