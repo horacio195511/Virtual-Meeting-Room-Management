@@ -3,28 +3,28 @@
     <h2>Creat Meeting</h2>
     <table class="center">
       <tr>
-          <td><label for="topic">主題</label></td>
-          <td><input id="topic" type="text" v-model="topic"></td>
+          <td class="labelright"><label for="topic">主題</label></td>
+          <td class="inputleft"><input id="topic" type="text" v-model="topic"></td>
       </tr>
       <tr>
-          <td><label for="host">主持人</label></td>
-          <td><input id="host" type="text" v-model="host"></td>
+          <td class="labelright"><label for="host">主持人</label></td>
+          <td class="inputleft"><input id="host" type="text" v-model="host"></td>
       </tr>
       <tr>
-          <td><label for="start">開始</label></td>
-          <td><input id="start" type="datetime-local" v-model="start"></td>
+          <td class="labelright"><label for="start">開始</label></td>
+          <td class="inputleft"><input id="start" type="datetime-local" v-model="start"></td>
       </tr>
       <tr>
-          <td><label for="end">結束</label></td>
-          <td><input id="end" type="datetime-local" v-model="end"></td>
+          <td class="labelright"><label for="end">結束</label></td>
+          <td class="inputleft"><input id="end" type="datetime-local" v-model="end"></td>
       </tr>
       <tr>
-          <td><label for="location">會議室</label></td>
-          <td><input id="location" type="text" v-model="location"></td>
+          <td class="labelright"><label for="location">會議室</label></td>
+          <td class="inputleft"><input id="location" type="text" v-model="location"></td>
       </tr>
       <tr>
-          <td><label>參與人</label></td>
-          <td>
+          <td class="labelright"><label>參與人</label></td>
+          <td class="inputleft">
             <CancelUser
               v-for="attendee in attendees"
               :attendee="attendee"
@@ -67,8 +67,8 @@ export default {
     },
     disinvite(attendee) {
       // remove the user from the list of attendee in current meeting
-      const index = this.currentMeeting.attendee.indexOf(attendee);
-      this.currentMeeting.attendee.splice(index, 1);
+      const index = this.currentMeeting.meeting.attendee.indexOf(attendee);
+      this.currentMeeting.meeting.attendee.splice(index, 1);
       this.$forceUpdate();
       // send email to the user who are disinvite
     },
@@ -78,8 +78,9 @@ export default {
         // Enter pressed
         // add the newUser to the list of attendee
         // push the last id+1 to the array
-        const newID = this.currentMeeting.attendee[this.currentMeeting.attendee.length - 1].id + 1;
-        this.currentMeeting.attendee.push({ id: newID, user: this.newUser });
+        const length = this.currentMeeting.meeting.attendee.length - 1;
+        const newID = this.currentMeeting.meeting.attendee[length].id + 1;
+        this.currentMeeting.meeting.attendee.push({ id: newID, user: this.newUser });
         this.newUser = '';
         this.$forceUpdate();
         // we somehow have to invite the new user, or just send email to all of them
@@ -95,37 +96,37 @@ export default {
     },
     topic() {
       if (this.meeting !== undefined) {
-        return this.meeting.topic;
+        return this.meeting.meeting.topic;
       }
       return '';
     },
     host() {
       if (this.meeting !== undefined) {
-        return this.meeting.host;
+        return this.meeting.meeting.host;
       }
       return '';
     },
     start() {
       if (this.meeting !== undefined) {
-        return this.meeting.start;
+        return this.meeting.meeting.start;
       }
       return '';
     },
     end() {
       if (this.meeting !== undefined) {
-        return this.meeting.end;
+        return this.meeting.meeting.end;
       }
       return '';
     },
     location() {
       if (this.meeting !== undefined) {
-        return this.meeting.location;
+        return this.meeting.meeting.location;
       }
       return '';
     },
     attendees() {
       if (this.meeting !== undefined) {
-        return this.meeting.attendee;
+        return this.meeting.meeting.attendee;
       }
       return '';
     },
@@ -135,11 +136,14 @@ export default {
 
 <style scoped>
 .center{
-  display: block;
   margin: auto;
-  width: 30%;
 }
-td{
-  width: 30%;
+.labelright{
+  text-align: right;
+  width: 50%;
+}
+.inputleft{
+  text-align: left;
+  width: 50%;
 }
 </style>

@@ -3,32 +3,32 @@
     <h2>Create Reminder</h2>
       <table class="center">
         <tr>
-            <td><label for="topic">主題</label></td>
-            <td><input id="topic" type="text" v-model="topic"></td>
+            <td class="labelright"><label for="topic">主題</label></td>
+            <td class="inputleft"><input id="topic" type="text" v-model="topic"></td>
         </tr>
         <tr>
-            <td><label for="host">主持人</label></td>
-            <td><input id="host" type="text" v-model="host"></td>
+            <td class="labelright"><label for="host">主持人</label></td>
+            <td class="inputleft"><input id="host" type="text" v-model="host"></td>
         </tr>
         <tr>
-            <td><label for="start">開始</label></td>
-            <td><input id="start" type="datetime-local" v-model="start"></td>
+            <td class="labelright"><label for="start">開始</label></td>
+            <td class="inputleft"><input id="start" type="datetime-local" v-model="start"></td>
         </tr>
         <tr>
-            <td><label for="end">結束</label></td>
-            <td><input id="end" type="datetime-local" v-model="end"></td>
+            <td class="labelright"><label for="end">結束</label></td>
+            <td class="inputleft"><input id="end" type="datetime-local" v-model="end"></td>
         </tr>
         <tr>
-            <td><label for="location">會議室</label></td>
-            <td><input id="location" type="text" v-model="location"></td>
+            <td class="labelright"><label for="location">會議室</label></td>
+            <td class="inputleft"><input id="location" type="text" v-model="location"></td>
         </tr>
         <tr>
-            <td><label for="attendee">參與人</label></td>
-            <td><input id="attendee" type="text" v-model="attendee"></td>
+            <td class="labelright"><label for="attendee">參與人</label></td>
+            <td class="inputleft"><input id="attendee" type="text" v-model="attendee"></td>
         </tr>
         <tr>
-            <td><label for="remind">提醒</label></td>
-            <td><input id="remind" type="datetime-local"></td>
+            <td class="labelright"><label for="remind">提醒</label></td>
+            <td class="inputleft"><input id="remind" type="datetime-local"></td>
         </tr>
         <tr>
             <td></td>
@@ -53,38 +53,38 @@ export default {
   computed: {
     topic() {
       if (this.meeting !== undefined) {
-        return this.meeting.topic;
+        return this.meeting.meeting.topic;
       }
       return '';
     },
     host() {
       if (this.meeting !== undefined) {
-        return this.meeting.host;
+        return this.meeting.meeting.host;
       }
       return '';
     },
     start() {
       if (this.meeting !== undefined) {
-        return this.meeting.start;
+        return this.meeting.meeting.start;
       }
       return '';
     },
     end() {
       if (this.meeting !== undefined) {
-        return this.meeting.end;
+        return this.meeting.meeting.end;
       }
       return '';
     },
     location() {
       if (this.meeting !== undefined) {
-        return this.meeting.location;
+        return this.meeting.meeting.location;
       }
       return '';
     },
     attendee() {
       if (this.meeting !== undefined) {
         let tmp = '';
-        this.meeting.attendee.forEach((element) => {
+        this.meeting.meeting.attendee.forEach((element) => {
           tmp += `${element.user},`;
         });
         return tmp;
@@ -99,9 +99,13 @@ export default {
 .center{
   display: block;
   margin: auto;
-  width: 30%;
 }
-td{
-  width: 30%;
+.labelright{
+  text-align: right;
+  width: 50%;
+}
+.inputleft{
+  text-align: left;
+  width: 50%;
 }
 </style>

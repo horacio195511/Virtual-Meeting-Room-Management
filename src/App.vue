@@ -1,14 +1,12 @@
 <template>
   <button v-on:click="home">Home</button>
-  <component :is="present" @change-view="present = $event"></component>
+  <component :is="present" @change-view="present = $event" :initialdate="today"></component>
 </template>
 
 <script>
 import ForgetPassword from './components/ForgetPassword.vue';
 import Login from './components/Login.vue';
 import Main from './components/Main.vue';
-import MeetingRoomInfo from './components/MeetingRoomInfo.vue';
-import CreateMeeting from './components/CreateMeeting.vue';
 import Signup from './components/Signup.vue';
 
 export default {
@@ -16,16 +14,15 @@ export default {
   components: {
     ForgetPassword,
     Login,
-    Main,
-    MeetingRoomInfo,
-    CreateMeeting,
     Signup,
+    Main,
   },
   data() {
     return {
       present: 'Login',
       // for test, this parameter should set to false in production
       loggedIn: true,
+      today: new Date(),
     };
   },
   methods: {

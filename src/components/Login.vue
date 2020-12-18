@@ -2,12 +2,12 @@
 <div>
   <table class="center">
     <tr>
-      <td><label for="acccount">帳號</label></td>
-      <td><input id="account" type="text"></td>
+      <td><label for="account" class="labelright">帳號</label></td>
+      <td><input id="account" type="text" class="inputleft" v-model="account"></td>
     </tr>
     <tr>
-      <td><label for="password">密碼</label></td>
-      <td><input id="password" type="password"></td>
+      <td><label for="password" class="labelright">密碼</label></td>
+      <td><input id="password" type="password" class="inputleft" v-model="password"></td>
     </tr>
     <tr>
       <td><button @click="login">登入</button></td>
@@ -33,9 +33,14 @@ export default {
 .center{
   display: block;
   margin: auto;
-  width: 30%;
+  width: 80%;
 }
-td{
-  width: 30%;
+.labelright{
+  text-align: right;
+  width: 50%;
+}
+.inputleft{
+  text-align: left;
+  width: 50%;
 }
 </style>
