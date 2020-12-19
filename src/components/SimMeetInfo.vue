@@ -15,6 +15,7 @@ export default {
     shortInfo() {
       let temp;
       if (this.meeting !== undefined) {
+        // should be the meeting without id??
         const { topic } = this.meeting.meeting;
         const { start } = this.meeting.meeting;
         temp = `${topic}@${start.getHours()}:${start.getMinutes()}`;

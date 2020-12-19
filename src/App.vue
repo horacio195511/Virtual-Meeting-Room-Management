@@ -63,16 +63,17 @@ export default {
   width: 100%;
   border: 2px solid rgb(0, 0, 0);
   border-radius: 8px;
+  border-collapse: collapse;
+}
+td{
+  border-bottom: 1px solid black;
 }
 .dateRow{
   overflow: hidden;
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
-  border-left: 2px solid black;
 }
 .topbutton{
   background-color: white;
-  border: 0px;
+  border: 1px solid black;
   margin: 3px;
 }
 .bottombutton{

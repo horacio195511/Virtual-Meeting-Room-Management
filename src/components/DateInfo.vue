@@ -32,16 +32,14 @@ export default {
 
 <style scoped>
   .date{
-    border: 2px solid gray;
     padding: 1px;
     margin: 0px;
   }
   .meetings{
-    border: 0px solid black;
     padding: 0px;
     overflow: auto;
   }
   td{
-    width: 14%;
+    width: 16%;
   }
 </style>

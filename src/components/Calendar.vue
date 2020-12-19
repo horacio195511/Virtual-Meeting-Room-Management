@@ -16,8 +16,7 @@
             <DateInfo
               v-for="date in cal[0]"
               :date='date.number'
-              :key="date.id"
-              @full-meeting-info="$emit('full-meeting-info', $event)">
+              :key="date.id">
             </DateInfo>
             </tr>
             <tr>
@@ -32,8 +31,7 @@
             <DateInfo
               v-for="date in cal[1]"
               :date='date.number'
-              :key="date.id"
-              @full-meeting-info="$emit('full-meeting-info', $event)">
+              :key="date.id">
             </DateInfo>
             </tr>
             <tr>
@@ -48,8 +46,7 @@
             <DateInfo
               v-for="date in cal[2]"
               :date='date.number'
-              :key="date.id"
-              @full-meeting-info="$emit('full-meeting-info', $event)">
+              :key="date.id">
             </DateInfo>
             </tr>
             <tr>
@@ -64,8 +61,7 @@
             <DateInfo
               v-for="date in cal[3]"
               :date='date.number'
-              :key="date.id"
-              @full-meeting-info="$emit('full-meeting-info', $event)">
+              :key="date.id">
             </DateInfo>
             </tr>
             <tr>
@@ -80,8 +76,7 @@
             <DateInfo
               v-for="date in cal[4]"
               :date='date.number'
-              :key="date.id"
-              @full-meeting-info="$emit('full-meeting-info', $event)">
+              :key="date.id">
             </DateInfo>
             </tr>
             <tr>

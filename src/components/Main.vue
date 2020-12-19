@@ -1,28 +1,22 @@
 <template>
     <!--button header-->
-      <button
-        class="topbutton"
-      >
+      <button class="topbutton">
         <img
           class="buttonimage"
           src="../assets/email.png"
         >
       </button>
-      <button
-        @click="createMeeting"
-        class="topbutton">
+      <button @click="createMeeting" class="topbutton">
         <img
           class="buttonimage"
           src="../assets/createMeeting.png">
-        </button>
-      <button
-        @click="changeLeftCol"
-        class="topbutton">
+      </button>
+      <button @click="changeLeftCol" class="topbutton">
         <img
           width=90
           height=30
           src="../assets/meetingRoom.png">
-        </button>
+      </button>
     <!-- 2 column view-->
     <div class="row">
       <div class="column left">
