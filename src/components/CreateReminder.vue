@@ -53,38 +53,38 @@ export default {
   computed: {
     topic() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.topic;
+        return this.meeting.topic;
       }
       return '';
     },
     host() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.host;
+        return this.meeting.host;
       }
       return '';
     },
     start() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.start;
+        return this.meeting.start;
       }
       return '';
     },
     end() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.end;
+        return this.meeting.end;
       }
       return '';
     },
     location() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.location;
+        return this.meeting.location;
       }
       return '';
     },
     attendee() {
       if (this.meeting !== undefined) {
         let tmp = '';
-        this.meeting.meeting.attendee.forEach((element) => {
+        this.meeting.attendee.forEach((element) => {
           tmp += `${element.user},`;
         });
         return tmp;
@@ -94,18 +94,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.center{
-  display: block;
-  margin: auto;
-}
-.labelright{
-  text-align: right;
-  width: 50%;
-}
-.inputleft{
-  text-align: left;
-  width: 50%;
-}
-</style>

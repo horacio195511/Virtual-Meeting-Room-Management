@@ -67,8 +67,8 @@ export default {
     },
     disinvite(attendee) {
       // remove the user from the list of attendee in current meeting
-      const index = this.currentMeeting.meeting.attendee.indexOf(attendee);
-      this.currentMeeting.meeting.attendee.splice(index, 1);
+      const index = this.currentMeeting.attendee.indexOf(attendee);
+      this.currentMeeting.meeting.splice(index, 1);
       this.$forceUpdate();
       // send email to the user who are disinvite
     },
@@ -78,9 +78,9 @@ export default {
         // Enter pressed
         // add the newUser to the list of attendee
         // push the last id+1 to the array
-        const length = this.currentMeeting.meeting.attendee.length - 1;
-        const newID = this.currentMeeting.meeting.attendee[length].id + 1;
-        this.currentMeeting.meeting.attendee.push({ id: newID, user: this.newUser });
+        const length = this.currentMeeting.attendee.length - 1;
+        const newID = this.currentMeeting.attendee[length].id + 1;
+        this.currentMeeting.attendee.push({ id: newID, user: this.newUser });
         this.newUser = '';
         this.$forceUpdate();
         // we somehow have to invite the new user, or just send email to all of them
@@ -96,37 +96,37 @@ export default {
     },
     topic() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.topic;
+        return this.meeting.topic;
       }
       return '';
     },
     host() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.host;
+        return this.meeting.host;
       }
       return '';
     },
     start() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.start;
+        return this.meeting.start;
       }
       return '';
     },
     end() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.end;
+        return this.meeting.end;
       }
       return '';
     },
     location() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.location;
+        return this.meeting.location;
       }
       return '';
     },
     attendees() {
       if (this.meeting !== undefined) {
-        return this.meeting.meeting.attendee;
+        return this.meeting.attendee;
       }
       return '';
     },
@@ -135,15 +135,4 @@ export default {
 </script>
 
 <style scoped>
-.center{
-  margin: auto;
-}
-.labelright{
-  text-align: right;
-  width: 50%;
-}
-.inputleft{
-  text-align: left;
-  width: 50%;
-}
 </style>

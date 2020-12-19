@@ -1,8 +1,28 @@
 <template>
     <!--button header-->
-    <button>e mail</button>
-    <button @click="createMeeting">create meeting</button>
-    <button @click="changeLeftCol">{{ invertLeftCol }}</button>
+      <button
+        class="topbutton"
+      >
+        <img
+          class="buttonimage"
+          src="../assets/email.png"
+        >
+      </button>
+      <button
+        @click="createMeeting"
+        class="topbutton">
+        <img
+          class="buttonimage"
+          src="../assets/createMeeting.png">
+        </button>
+      <button
+        @click="changeLeftCol"
+        class="topbutton">
+        <img
+          width=90
+          height=30
+          src="../assets/meetingRoom.png">
+        </button>
     <!-- 2 column view-->
     <div class="row">
       <div class="column left">
@@ -98,5 +118,13 @@ export default {
 }
 .right{
   flex: 30%;
+}
+.topbutton{
+  background-color: white;
+  border: 0px;
+}
+.buttonimage{
+  width: 30px;
+  height: 30px;
 }
 </style>

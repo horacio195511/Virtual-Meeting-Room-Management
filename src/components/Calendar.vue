@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>{{ currentMonth }}</h1>
+      <h1>Calendar</h1>
+        <h3>{{ currentMonth }}</h3>
         <table class='calendar'>
             <tr>
                 <td class="dateRow">Sun</td>
@@ -25,8 +26,7 @@
               :key="date.id"
               :meetings="meetings[date.number]"
               @full-meeting-info="$emit('full-meeting-info', $event)">
-            </DateInfo>
-            </tr>
+            </DateInfo></tr>
 
             <tr>
             <DateInfo
@@ -92,9 +92,25 @@
               @full-meeting-info="$emit('full-meeting-info', $event)">
             </DateInfo></tr>
         </table>
-        <button @click="decMonth">last</button>
-        {{ currentYear }}/{{ currentMonth }}
-        <button @click="incMonth">next</button>
+          <button
+            @click="decMonth"
+            class="bottombutton"
+          >
+            <img
+              src="../assets/last.png"
+              class="buttonimage"
+            >
+          </button>
+          {{ currentYear }}/{{ currentMonth }}
+          <button
+            @click="incMonth"
+            class="bottombutton"
+            >
+            <img
+              src="../assets/next.png"
+              class="buttonimage"
+              >
+          </button>
     </div>
 </template>
 
@@ -246,17 +262,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.calendar{
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 10px;
-}
-.dateRow{
-  width: 5%;
-  overflow: hidden;
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
-  border-left: 2px solid black;
-}
-</style>

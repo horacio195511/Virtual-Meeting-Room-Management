@@ -1,5 +1,16 @@
 <template>
-  <button v-on:click="home">Home</button>
+  <span>
+    <button
+      @click="home"
+      class="topbutton"
+    >
+      <img
+        src="./assets/home.png"
+        width=90
+        height=30
+      >
+    </button>
+  </span>
   <component :is="present" @change-view="present = $event" :initialdate="today"></component>
 </template>
 
@@ -45,5 +56,44 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.calendar{
+  display: block;
+  margin: auto;
+  width: 100%;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 8px;
+}
+.dateRow{
+  overflow: hidden;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+}
+.topbutton{
+  background-color: white;
+  border: 0px;
+  margin: 3px;
+}
+.bottombutton{
+  background-color: white;
+  border: 0px;
+  margin: 3px;
+}
+.buttonimage{
+  width: 30px;
+  height: 30px;
+}
+.center{
+  display: block;
+  margin: auto;
+}
+.labelright{
+  text-align: right;
+  width: 50%;
+}
+.inputleft{
+  text-align: left;
+  width: 50%;
 }
 </style>

@@ -1,23 +1,26 @@
 <template>
     <!--make it a component-->
     <div>
-        <h2>Meeting Room Information</h2>
+        <h1>Meeting Room Information</h1>
         <h3>{{ currentMonth }}</h3>
-        <table>
+        <table class="calendar">
           <!-- date number column-->
           <tr>
-            <td>Sun</td>
-            <td>Mon</td>
-            <td>Tue</td>
-            <td>Wed</td>
-            <td>Thr</td>
-            <td>Fri</td>
-            <td>Sat</td>
+            <td class="dateRow">Sun</td>
+            <td class="dateRow">Mon</td>
+            <td class="dateRow">Tue</td>
+            <td class="dateRow">Wed</td>
+            <td class="dateRow">Thr</td>
+            <td class="dateRow">Fri</td>
+            <td class="dateRow">Sat</td>
           </tr>
           <tr>
-            <td v-for="date in calWeek" :key="date.id">
-              {{ date.date }}
-            </td>
+            <DateInfo
+              v-for="date in calWeek"
+              :key="date.id"
+              :date="date.date"
+              :meetings="meetings">
+            </DateInfo>
           </tr>
         </table>
         <button @click="decWeek">last</button>
@@ -27,7 +30,7 @@
 </template>
 
 <script>
-// import DateInfo from './DateInfo.vue';
+import DateInfo from './DateInfo.vue';
 
 export default {
   name: 'MeetingRoomInfo.vue',
@@ -42,6 +45,9 @@ export default {
     };
   },
   methods: {
+    meetingRequest() {
+
+    },
     incWeek() {
       this.currentDate.setDate(this.currentDate.getDate() + 7);
       this.currentMonth = this.currentDate.getMonth() + 1;
@@ -78,7 +84,7 @@ export default {
     },
   },
   components: {
-    // DateInfo,
+    DateInfo,
   },
 };
 </script>

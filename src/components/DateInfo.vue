@@ -37,12 +37,11 @@ export default {
     margin: 0px;
   }
   .meetings{
-    width: 90%;
     border: 0px solid black;
     padding: 0px;
     overflow: auto;
   }
   td{
-    width: 10%;
+    width: 14%;
   }
 </style>

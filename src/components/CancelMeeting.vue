@@ -4,15 +4,15 @@
       <table class="center">
         <tr>
           <td class="labelright">主題</td>
-          <td class="inputleft">{{ meeting.meeting.topic }}</td>
+          <td class="inputleft">{{ meeting.topic }}</td>
         </tr>
         <tr>
           <td class="labelright">開始</td>
-          <td class="inputleft">{{ meeting.meeting.start }}</td>
+          <td class="inputleft">{{ meeting.start }}</td>
         </tr>
         <tr>
           <td class="labelright">結束</td>
-          <td class="inputleft">{{ meeting.meeting.end }}</td>
+          <td class="inputleft">{{ meeting.end }}</td>
         </tr>
         <tr>
           <td></td>
@@ -35,16 +35,4 @@ export default {
 </script>
 
 <style>
-.center{
-  display: block;
-  margin: auto;
-}
-.labelright{
-  text-align: right;
-  width: 50%;
-}
-.inputleft{
-  text-align: left;
-  width: 50%;
-}
 </style>
