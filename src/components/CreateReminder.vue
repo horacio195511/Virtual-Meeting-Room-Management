@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Create Reminder</h2>
+    <h1>Create Reminder</h1>
       <table class="center">
         <tr>
             <td class="labelright"><label for="topic">主題</label></td>

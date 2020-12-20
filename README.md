@@ -14,6 +14,9 @@ npm run serve
 ```
 npm run build
 ```
+## Configure the build
+modify the file "vue.config.js", change the outputDir to where your web server locate.
+And run the command "npm run build".
 
 ### Lints and fixes files
 ```

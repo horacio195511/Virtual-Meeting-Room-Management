@@ -6,7 +6,7 @@
     </tr>
     <tr>
       <!--not complete yet-->
-      <td><button @click="sendPassword"></button></td>
+      <td><button @click="sendPassword">送出</button></td>
     </tr>
   </table>
 </template>
