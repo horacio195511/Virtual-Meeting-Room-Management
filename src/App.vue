@@ -1,17 +1,16 @@
 <template>
   <span>
-    <button
-      @click="home"
-      class="topbutton"
-    >
-      <img
-        src="./assets/home.png"
-        width=90
-        height=30
-      >
+    <button @click="home" class="topbutton">
+      <img src="./assets/home.png" width=90 height=30>
     </button>
   </span>
-  <component :is="present" @change-view="present = $event" :initialdate="today"></component>
+  <component
+    :is="present"
+    :initialdate="today"
+    @change-view="present = $event"
+    @login-success = "loginSuccess"
+  >
+  </component>
 </template>
 
 <script>
@@ -32,7 +31,7 @@ export default {
     return {
       present: 'Login',
       // for test, this parameter should set to false in production
-      loggedIn: true,
+      loggedIn: false,
       today: new Date(),
     };
   },
@@ -43,6 +42,11 @@ export default {
       } else {
         this.present = 'Main';
       }
+    },
+    loginSuccess() {
+      // login operation success
+      this.loggedIn = true;
+      this.present = 'Main';
     },
   },
 };
@@ -59,7 +63,8 @@ export default {
 }
 .calendar{
   display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
   border: 2px solid rgb(0, 0, 0);
   border-radius: 8px;
@@ -87,7 +92,9 @@ td{
 }
 .center{
   display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
 }
 .labelright{
   text-align: right;

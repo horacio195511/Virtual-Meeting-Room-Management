@@ -45,9 +45,33 @@ export default {
   methods: {
     create() {
       // sent request to API
-
+      const formdata = new FormData();
+      formdata.append('topic', this.topic);
+      formdata.append('host', this.host);
+      formdata.append('start', this.start);
+      formdata.append('end', this.end);
+      formdata.append('location', this.location);
+      formdata.append('attendee', this.attendees);
+      fetch('http://localhost:7000/test/v1/meeting_create', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'same-origin',
+        body: formdata,
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('fetch error!!');
+        } else {
+          return response.json();
+        }
+      }).then((jsonResponse) => {
+        if (jsonResponse.body === 0) {
+          console.log('create success');
+          this.$emit('full-meeting-info');
+        } else console.log('create fail');
+      }).catch((error) => {
+        console.error(error);
+      });
       // go back to info
-      this.$emit('full-meeting-info');
     },
   },
   computed: {

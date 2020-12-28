@@ -125,100 +125,48 @@ export default {
       currentYear: this.initialdate.getFullYear(),
       cal: this.calGenerator(this.initialdate),
       // meeting request should be done here
-      meetings: this.meetingRequest(),
+      meetings: this.meetingRequest(this.initialdate.getFullYear(), this.initialdate.getMonth()),
     };
   },
   methods: {
     // since different calendar needs different form of meeting,
     // so the meetingRequest put here
-    meetingRequest() {
-      // get meeting list of the specific month from server
-      const rawMeetings = [
-        {
-          topic: 'science',
-          host: 'Daniel Lin',
-          start: new Date(2020, 12, 20, 15, 30),
-          end: new Date(2020, 12, 20, 16, 0),
-          location: 'room31',
-          attendee: [{ id: 1, user: 'daniel' }, { id: 2, user: 'mark' }, { id: 3, user: 'sam' }],
-        },
-        {
-          topic: 'math',
-          host: 'Jeremy Lin',
-          start: new Date(2020, 12, 18, 12, 30),
-          end: new Date(2020, 12, 18, 14, 2),
-          location: 'hall1',
-          attendee: [{ id: 1, user: 'george' }, { id: 2, user: 'roman' }, { id: 3, user: 'leonardo' }],
-        },
-        {
-          topic: 'science',
-          host: 'Yue',
-          start: new Date(2020, 12, 21, 11, 10),
-          end: new Date(2020, 12, 21, 16, 60),
-          location: 'room34',
-          attendee: [{ id: 1, user: 'yahzee' }, { id: 2, user: 'evo' }, { id: 3, user: 'uno' }],
-        },
-        {
-          topic: 'architecture',
-          host: 'hyudai',
-          start: new Date(2020, 12, 22, 5, 20),
-          end: new Date(2020, 12, 22, 8, 30),
-          location: 'room70',
-          attendee: [{ id: 1, user: 'jolin' }, { id: 2, user: 'olivo' }, { id: 3, user: 'foxtrat' }],
-        },
-        {
-          topic: 'physics',
-          host: 'fandom',
-          start: new Date(2020, 12, 15, 25, 6),
-          end: new Date(2020, 12, 15, 27, 40),
-          location: 'room31',
-          attendee: [{ id: 1, user: 'rosvo' }, { id: 2, user: 'deli' }, { id: 3, user: 'alin' }],
-        },
-        {
-          topic: 'engineer',
-          host: 'daniel',
-          start: new Date(2020, 12, 11, 20, 40),
-          end: new Date(2020, 12, 11, 22, 22),
-          location: 'hall1',
-          attendee: [{ id: 1, user: 'quantun' }, { id: 2, user: 'fermi' }, { id: 3, user: 'einstein' }],
-        },
-        {
-          topic: 'software',
-          host: 'uganda',
-          start: new Date(2020, 12, 15, 30, 70),
-          end: new Date(2020, 12, 15, 40, 70),
-          location: 'stub11',
-          attendee: [{ id: 1, user: 'quantun' }, { id: 2, user: 'fermi' }, { id: 3, user: 'einstein' }],
-        },
-      ];
-      // sort it according to day
-      // ex:
-      // meetings:[
-      // [{id:1, meeting}, {id:2, meeting}],
-      // [{id:3, meeting}],
-      // ]
-      const meetingsForDate = [];
-      for (let i = 0; i <= 31; i += 1) {
-        // create 31 empty array for 31 days in a month
-        meetingsForDate.push([]);
-      }
-      let i = 0;
-      rawMeetings.forEach((element) => {
-        meetingsForDate[element.start.getDate()].push({ id: i += 1, meeting: element });
+    meetingRequest(year, month) {
+      // production usage
+      let meetings;
+      const formdata = new FormData();
+      formdata.append('year', year);
+      formdata.append('month', month);
+      fetch('http://localhost:7000/test/v1/get_meeting_info_month', {
+        method: 'POST',
+        body: formdata,
+        credentials: 'same-origin',
+        mode: 'cors',
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('fetcht error!!');
+        } else {
+          return response.json();
+        }
+      }).then((jsonResponse) => {
+        console.log(jsonResponse);
+        meetings = jsonResponse;
+      }).catch((error) => {
+        console.error(error);
       });
-      return meetingsForDate;
+      return meetings;
     },
     incMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() + 1);
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentYear = this.currentDate.getFullYear();
-      this.cal = this.calGenerator(this.currentDate);
+      this.cal = this.calGenerator(this.currentDate.getFullYear(), this.currentDate.getMonth());
     },
     decMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() - 1);
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentYear = this.currentDate.getFullYear();
-      this.cal = this.calGenerator(this.currentDate);
+      this.cal = this.calGenerator(this.currentDate.getFullYear(), this.currentDate.getMonth());
     },
     calGenerator(date) {
       // render the calendar according to the month

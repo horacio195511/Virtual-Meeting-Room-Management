@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <h1>Creat Meeting</h1>
     <table class="center">
       <tr>
@@ -23,8 +23,10 @@
           <td class="inputleft"><input id="location" type="text" v-model="location"></td>
       </tr>
       <tr>
-          <td class="labelright"><label>參與人</label></td>
+          <td class="labelright"><label for="attendee">參與人</label></td>
           <td class="inputleft">
+            <input id="attendee" type="text" v-model="attendee">
+            <!--
             <CancelUser
               v-for="attendee in attendees"
               :attendee="attendee"
@@ -32,6 +34,7 @@
               @disinvite="disinvite">
             </CancelUser>
             <input type="text" v-model="newUser" @keydown="newAttendee($event)">
+            -->
           </td>
       </tr>
       <tr>
@@ -43,14 +46,14 @@
 </template>
 
 <script>
-import CancelUser from './CancelUser.vue';
+// import CancelUser from './CancelUser.vue';
 
 export default {
   name: 'CreateMeeting',
   props: ['meeting'],
-  components: {
-    CancelUser,
-  },
+  // components: {
+  //   CancelUser,
+  // },
   data() {
     return {
       currentMeeting: this.meeting,
@@ -60,15 +63,45 @@ export default {
   methods: {
     create() {
       // call the api to store the meeting
-
+      // collect data from the from
+      // distinguish between edit and create
+      let id;
+      if (this.meeting === undefined) id = 0;
+      else id = this.meeting.id;
+      const formdata = new FormData();
+      formdata.append('id', id);
+      formdata.append('topic', this.topic);
+      formdata.append('host', this.host);
+      formdata.append('start', this.start);
+      formdata.append('end', this.end);
+      formdata.append('location', this.location);
+      formdata.append('attendee', this.attendees);
+      fetch('https://localhost:7000/test/v1/meeting_create', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'same-origin',
+        body: formdata,
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('fetch error!!');
+        } else {
+          return response.json();
+        }
+      }).then((jsonResponse) => {
+        if (jsonResponse.result === 0) {
+          console.log('create success');
+          this.$emit('create-reminder');
+        } else console.log('create fail');
+      }).catch((error) => {
+        console.error(error);
+      });
       // if meeting create was successful, create reminder
       // data is bind to the form
-      this.$emit('create-reminder');
     },
     disinvite(attendee) {
       // remove the user from the list of attendee in current meeting
       const index = this.currentMeeting.attendee.indexOf(attendee);
-      this.currentMeeting.meeting.splice(index, 1);
+      this.currentMeeting.attendee.splice(index, 1);
       this.$forceUpdate();
       // send email to the user who are disinvite
     },
@@ -133,6 +166,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

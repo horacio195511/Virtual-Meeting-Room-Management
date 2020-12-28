@@ -28,7 +28,27 @@ export default {
   props: ['meeting'],
   methods: {
     cancelMeeting() {
-      // call the api to cancel meeting
+      const formdata = new FormData();
+      formdata.append('id', this.meeting.id);
+      fetch('http://localhost:7000/test/v1/meeting_cancel', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'same-origin',
+        body: formdata,
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('fetch error');
+        }
+        return response.json();
+      }).then((jsonResponse) => {
+        if (jsonResponse.result === 0) {
+          console.log('cancel success');
+        } else {
+          console.log('cancel fail');
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
     },
   },
 };
