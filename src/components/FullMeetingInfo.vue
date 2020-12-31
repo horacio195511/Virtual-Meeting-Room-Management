@@ -20,16 +20,11 @@
         </tr>
         <tr>
           <td class="labelright">會議室</td>
-          <td class="inputleft">{{ meeting.location }}</td>
+          <td class="inputleft">{{ meeting.room }}</td>
         </tr>
         <tr>
           <td class="labelright">參與人</td>
-          <td class="inputleft">
-            <span
-              v-for="attendee in meeting.attendee"
-              :key="attendee.id"
-            >{{ attendee.user }}, </span>
-          </td>
+          <td class="inputleft">{{ meeting.attendee}}</td>
         </tr>
         <tr>
           <td></td>

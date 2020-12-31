@@ -65,7 +65,7 @@
             class="buttonimage"
           >
         </button>
-        {{ currentMonth }}/{{ currentDay }}
+        {{ currentYear }}//{{ currentMonth }}/{{ currentDay }}
         <button
           @click="incWeek"
           class="bottombutton"
@@ -88,36 +88,56 @@ export default {
     return {
       currentDate: this.initialdate,
       // since Vue.js don't detect the change of date Object, we have to do this manually
-      currentMonth: this.initialdate.getMonth() + 1,
       currentDay: this.initialdate.getDate(),
+      currentMonth: this.initialdate.getMonth() + 1,
+      currentYear: this.initialdate.getFullYear(),
       calWeek: this.weekGenerator(this.initialdate),
-      meetings: this.meetingRequest(this.initialdate),
+      meetings: [
+        { location: 'Room1', meetings: [] },
+        { location: 'Room2', meetings: [] },
+        { location: 'Room3', meetings: [] },
+        { location: 'Room4', meetings: [] },
+        { location: 'Room5', meetings: [] },
+      ],
+      // on developement state, we have only 5 room, so Array(5)
     };
   },
   methods: {
-    meetingRequest(date) {
+    async meetingRequest(date) {
       // get meeting list of the specific month from server
       const formdata = new FormData();
-      let meetings;
-      date.setDate(date.getDate() - date.getDay());
-      const newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-      formdata.append('date', newDate);
+      // set the date to the beginning of the week
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate() - date.getDay();
+      formdata.append('year', year);
+      formdata.append('month', month);
+      formdata.append('day', day);
       return fetch('http://localhost:7000/test/v1/get_meeting_info_week', {
         method: 'POST',
         body: formdata,
         credentials: 'same-origin',
         mode: 'cors',
-      }).then((response) => {
+      }).then(async (response) => {
         if (!response.ok) {
           throw new Error('fetch error!!');
         } else {
-          return response.json();
+          const jsonResponse = await response.json();
+          return jsonResponse;
         }
-      }).then((jsonResponse) => {
-        // mess around
-        console.log(jsonResponse);
-        meetings = jsonResponse;
-        return meetings;
+      }).then(async (jsonResponse) => {
+        const myMeetings = [];
+        let i;
+        let j;
+        for (i = 0; i <= 4; i += 1) {
+          // creating 5 room, and seven days
+          myMeetings.push({ location: `Room${i + 1}`, meetings: [] });
+          for (j = 0; j <= 6; j += 1) {
+            myMeetings[i].meetings.push(jsonResponse[i + 1][j + 1].meeting);
+          }
+        }
+        this.meetings = myMeetings;
+        this.$forceUpdate();
       }).catch((error) => {
         console.error(error);
       });
@@ -127,14 +147,12 @@ export default {
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentDay = this.currentDate.getDate();
       this.calWeek = this.weekGenerator(this.currentDate);
-      this.meetings = this.meetingRequest(this.currentDate);
     },
     decWeek() {
       this.currentDate.setDate(this.currentDate.getDate() - 7);
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentDay = this.currentDate.getDate();
       this.calWeek = this.weekGenerator(this.currentDate);
-      this.meetings = this.meetingRequest(this.currentDate);
     },
     weekGenerator(date) {
       // return the array of all of the date in the week for the currentDate
@@ -155,6 +173,7 @@ export default {
       date.setYear(initYear);
       date.setMonth(initMonth);
       date.setDate(initDate);
+      this.meetings = this.meetingRequest(this.currentDate);
       return calWeek;
     },
   },

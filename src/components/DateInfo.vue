@@ -8,7 +8,6 @@
           :meeting='meeting'
           @full-meeting-info="$emit('full-meeting-info', $event)">
         </sim-meet-info>
-        {{ hello }}
       </div>
     </td>
 </template>
@@ -21,12 +20,6 @@ export default {
   props: ['date', 'meetings'],
   components: {
     SimMeetInfo,
-  },
-  computed: {
-    hello() {
-      console.log(this.meetings);
-      return 1;
-    },
   },
 };
 </script>

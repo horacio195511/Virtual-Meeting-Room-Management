@@ -39,7 +39,7 @@
           </td>
       </tr>
       <tr>
-          <td></td>
+          <td>{{ update }}</td>
           <td><button type="button" @click="create">{{ createText }}</button></td>
       </tr>
     </table>
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       currentMeeting: this.meeting,
-      newUser: '',
+      update: this.updateValue(),
     };
   },
   methods: {
@@ -66,39 +66,66 @@ export default {
       // call the api to store the meeting
       // collect data from the from
       // distinguish between edit and create
-      let id;
-      if (this.meeting === undefined) id = 0;
-      else id = this.meeting.id;
-      const formdata = new FormData();
-      formdata.append('id', id);
-      formdata.append('topic', this.topic);
-      formdata.append('host', this.host);
-      // time format need debug
-      formdata.append('start', this.start);
-      formdata.append('end', this.end);
-      formdata.append('room', this.room);
-      formdata.append('attendee', this.attendees);
-      fetch('http://localhost:7000/test/v1/meeting_create', {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'same-origin',
-        body: formdata,
-      }).then((response) => {
-        if (!response.ok) {
-          throw new Error('fetch error!!');
-        } else {
-          return response.json();
-        }
-      }).then((jsonResponse) => {
-        if (jsonResponse.result === 0) {
-          console.log('create success');
-          this.$emit('create-reminder');
-        } else console.log('create fail');
-      }).catch((error) => {
-        console.error(error);
-      });
-      // if meeting create was successful, create reminder
-      // data is bind to the form
+      if (this.meeting === undefined) {
+        // for create
+        const formdata = new FormData();
+        formdata.append('topic', this.topic);
+        formdata.append('host', this.host);
+        // time format need debug
+        formdata.append('start', this.start);
+        formdata.append('end', this.end);
+        formdata.append('room', this.room);
+        formdata.append('attendee', this.attendee);
+        fetch('http://localhost:7000/test/v1/meeting_create', {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'same-origin',
+          body: formdata,
+        }).then((response) => {
+          if (!response.ok) {
+            throw new Error('fetch error!!');
+          } else {
+            return response.json();
+          }
+        }).then((jsonResponse) => {
+          if (jsonResponse.result === 0) {
+            // operation successful, pass the current data and id to the next component
+            console.log(jsonResponse.result);
+            this.$emit('create-reminder');
+          } else console.log('create fail');
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        // for editing
+        const formdata = new FormData();
+        formdata.append('id', this.meeting.id);
+        formdata.append('topic', this.topic);
+        formdata.append('host', this.host);
+        // time format need debug
+        formdata.append('start', this.start);
+        formdata.append('end', this.end);
+        formdata.append('room', this.room);
+        formdata.append('attendee', this.attendee);
+        fetch('http://localhost:7000/test/v1/meeting_edit', {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'same-origin',
+          body: formdata,
+        }).then((response) => {
+          if (!response.ok) {
+            throw new Error('fetch error!!');
+          } else {
+            return response.json();
+          }
+        }).then((jsonResponse) => {
+          if (jsonResponse.result === 0) {
+            // operation successful,
+          } else console.log('edit success');
+        }).catch((error) => {
+          console.error(error);
+        });
+      }
     },
     updateValue() {
       this.topic = this.meeting.topic;
@@ -107,15 +134,16 @@ export default {
       this.end = this.meeting.end;
       this.room = this.meeting.room;
       this.attendee = this.meeting.attendee;
+      return '';
     },
   },
   computed: {
     createText() {
       if (this.meeting !== undefined) {
         this.updateValue();
-        return '建立';
+        return '更新';
       }
-      return '更新';
+      return '建立';
     },
   },
 };

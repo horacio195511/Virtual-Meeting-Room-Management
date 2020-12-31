@@ -99,7 +99,7 @@
               src="../assets/last.png"
               class="buttonimage">
           </button>
-          {{ currentYear }}/{{ currentMonth }}
+          {{ currentYear }}/{{ currentMonth }}//{{currentDay}}
           <button
             @click="incMonth"
             class="bottombutton">
@@ -122,11 +122,11 @@ export default {
   data() {
     return {
       currentDate: this.initialdate,
+      currentDay: this.initialdate.getDate(),
       currentMonth: this.initialdate.getMonth() + 1,
       currentYear: this.initialdate.getFullYear(),
       cal: this.calGenerator(this.initialdate),
-      // meeting request should be done here
-      meetings: this.meetingRequest(this.initialdate),
+      meetings: new Array(31),
     };
   },
   methods: {
@@ -136,10 +136,10 @@ export default {
       // production usage
       const formdata = new FormData();
       const year = date.getFullYear();
-      const month = date.getMonth();
+      const month = date.getMonth() + 1;
       formdata.append('year', year);
-      formdata.append('month', month + 1);
-      fetch('http://localhost:7000/test/v1/get_meeting_info_month', {
+      formdata.append('month', month);
+      return fetch('http://localhost:7000/test/v1/get_meeting_info_month', {
         method: 'POST',
         body: formdata,
         credentials: 'same-origin',
@@ -157,9 +157,8 @@ export default {
         for (i = 0; i <= 30; i += 1) {
           meetingForCal[i] = jsonResponse[i + 1];
         }
-        console.log(jsonResponse);
-        console.log(meetingForCal);
-        return meetingForCal;
+        this.meetings = meetingForCal;
+        this.$forceUpdate();
       }).catch((error) => {
         console.error(error);
       });
@@ -169,14 +168,12 @@ export default {
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentYear = this.currentDate.getFullYear();
       this.cal = this.calGenerator(this.currentDate);
-      this.meetings = this.meetingRequest(this.currentDate);
     },
     decMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() - 1);
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentYear = this.currentDate.getFullYear();
       this.cal = this.calGenerator(this.currentDate);
-      this.meetings = this.meetingRequest(this.currentDate);
     },
     calGenerator(date) {
       // render the calendar according to the month
@@ -210,6 +207,8 @@ export default {
       date.setYear(initYear);
       date.setMonth(initMonth);
       date.setDate(initDate);
+      // update the meeting list
+      this.meetings = this.meetingRequest(this.currentDate);
       return cal;
     },
   },

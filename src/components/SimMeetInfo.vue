@@ -14,12 +14,11 @@ export default {
   computed: {
     shortInfo() {
       let temp;
-      console.log(this.meeting);
       if (this.meeting !== undefined) {
         // should be the meeting without id??
+        const myDate = new Date(this.meeting.start);
         const { topic } = this.meeting;
-        const { start } = this.meeting;
-        temp = `${topic}@${start.getHours()}:${start.getMinutes()}`;
+        temp = `${topic}@${myDate.getHours()}:${myDate.getMinutes()}`;
       } else {
         temp = '';
       }

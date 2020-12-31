@@ -18,13 +18,11 @@
       <div class="column left">
         <!--left column-->
         <!--for calendar and meeting room information-->
-        <keep-alive>
         <component
           :is="leftcol"
           :initialdate="initialdate"
           @full-meeting-info="fullMeetingInfo">
         </component>
-        </keep-alive>
       </div>
       <div class="column right">
         <!--right column-->
@@ -78,6 +76,8 @@ export default {
   },
   methods: {
     fullMeetingInfo(meeting) {
+      console.log('full info');
+      console.log(meeting);
       this.selectedMeeting = meeting;
       this.rightcol = 'FullMeetingInfo';
     },
