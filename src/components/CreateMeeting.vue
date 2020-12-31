@@ -4,37 +4,38 @@
     <table class="center">
       <tr>
           <td class="labelright"><label for="topic">主題</label></td>
-          <td class="inputleft"><input id="topic" type="text" v-model="topic"></td>
+          <td class="inputleft">
+            <input id="topic" type="text" v-model="topic">
+          </td>
       </tr>
       <tr>
           <td class="labelright"><label for="host">主持人</label></td>
-          <td class="inputleft"><input id="host" type="text" v-model="host"></td>
+          <td class="inputleft">
+            <input id="host" type="text" v-model="host">
+          </td>
       </tr>
       <tr>
           <td class="labelright"><label for="start">開始</label></td>
-          <td class="inputleft"><input id="start" type="datetime-local" v-model="start"></td>
+          <td class="inputleft">
+            <input id="start" type="datetime-local" v-model="start">
+          </td>
       </tr>
       <tr>
           <td class="labelright"><label for="end">結束</label></td>
-          <td class="inputleft"><input id="end" type="datetime-local" v-model="end"></td>
+          <td class="inputleft">
+            <input id="end" type="datetime-local" v-model="end">
+          </td>
       </tr>
       <tr>
-          <td class="labelright"><label for="location">會議室</label></td>
-          <td class="inputleft"><input id="location" type="text" v-model="location"></td>
+          <td class="labelright"><label for="room">會議室</label></td>
+          <td class="inputleft">
+            <input id="room" type="text" v-model="room">
+          </td>
       </tr>
       <tr>
           <td class="labelright"><label for="attendee">參與人</label></td>
           <td class="inputleft">
             <input id="attendee" type="text" v-model="attendee">
-            <!--
-            <CancelUser
-              v-for="attendee in attendees"
-              :attendee="attendee"
-              :key="attendee.id"
-              @disinvite="disinvite">
-            </CancelUser>
-            <input type="text" v-model="newUser" @keydown="newAttendee($event)">
-            -->
           </td>
       </tr>
       <tr>
@@ -72,11 +73,12 @@ export default {
       formdata.append('id', id);
       formdata.append('topic', this.topic);
       formdata.append('host', this.host);
+      // time format need debug
       formdata.append('start', this.start);
       formdata.append('end', this.end);
-      formdata.append('location', this.location);
+      formdata.append('room', this.room);
       formdata.append('attendee', this.attendees);
-      fetch('https://localhost:7000/test/v1/meeting_create', {
+      fetch('http://localhost:7000/test/v1/meeting_create', {
         method: 'POST',
         mode: 'cors',
         credentials: 'same-origin',
@@ -98,70 +100,22 @@ export default {
       // if meeting create was successful, create reminder
       // data is bind to the form
     },
-    disinvite(attendee) {
-      // remove the user from the list of attendee in current meeting
-      const index = this.currentMeeting.attendee.indexOf(attendee);
-      this.currentMeeting.attendee.splice(index, 1);
-      this.$forceUpdate();
-      // send email to the user who are disinvite
-    },
-    newAttendee(event) {
-      const keyCode = event.key;
-      if (keyCode === 'Enter') {
-        // Enter pressed
-        // add the newUser to the list of attendee
-        // push the last id+1 to the array
-        const length = this.currentMeeting.attendee.length - 1;
-        const newID = this.currentMeeting.attendee[length].id + 1;
-        this.currentMeeting.attendee.push({ id: newID, user: this.newUser });
-        this.newUser = '';
-        this.$forceUpdate();
-        // we somehow have to invite the new user, or just send email to all of them
-      }
+    updateValue() {
+      this.topic = this.meeting.topic;
+      this.host = this.meeting.host;
+      this.start = this.meeting.start;
+      this.end = this.meeting.end;
+      this.room = this.meeting.room;
+      this.attendee = this.meeting.attendee;
     },
   },
   computed: {
     createText() {
-      if (this.meeting === undefined) {
+      if (this.meeting !== undefined) {
+        this.updateValue();
         return '建立';
       }
       return '更新';
-    },
-    topic() {
-      if (this.meeting !== undefined) {
-        return this.meeting.topic;
-      }
-      return '';
-    },
-    host() {
-      if (this.meeting !== undefined) {
-        return this.meeting.host;
-      }
-      return '';
-    },
-    start() {
-      if (this.meeting !== undefined) {
-        return this.meeting.start;
-      }
-      return '';
-    },
-    end() {
-      if (this.meeting !== undefined) {
-        return this.meeting.end;
-      }
-      return '';
-    },
-    location() {
-      if (this.meeting !== undefined) {
-        return this.meeting.location;
-      }
-      return '';
-    },
-    attendees() {
-      if (this.meeting !== undefined) {
-        return this.meeting.attendee;
-      }
-      return '';
     },
   },
 };

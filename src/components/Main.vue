@@ -3,30 +3,28 @@
       <button class="topbutton">
         <img
           class="buttonimage"
-          src="../assets/email.png"
-        >
+          src="../assets/email.png">
       </button>
       <button @click="createMeeting" class="topbutton">
         <img
-          class="buttonimage"
-          src="../assets/createMeeting.png">
+        class="buttonimage"
+        src="../assets/createMeeting.png">
       </button>
       <button @click="changeLeftCol" class="topbutton">
-        <img
-          width=90
-          height=30
-          src="../assets/meetingRoom.png">
+        切換資訊
       </button>
     <!-- 2 column view-->
     <div class="row">
       <div class="column left">
         <!--left column-->
         <!--for calendar and meeting room information-->
+        <keep-alive>
         <component
           :is="leftcol"
           :initialdate="initialdate"
           @full-meeting-info="fullMeetingInfo">
         </component>
+        </keep-alive>
       </div>
       <div class="column right">
         <!--right column-->
@@ -73,9 +71,9 @@ export default {
   computed: {
     invertLeftCol() {
       if (this.leftcol === 'Calendar') {
-        return 'Meeting Room Information';
+        return '會議室資訊';
       }
-      return 'Calendar';
+      return '日曆';
     },
   },
   methods: {

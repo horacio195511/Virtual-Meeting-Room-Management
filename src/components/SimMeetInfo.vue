@@ -1,6 +1,6 @@
 <template>
     <h6
-      @click="$emit('full-meeting-info', meeting.meeting)"
+      @click="$emit('full-meeting-info', meeting)"
       class="meeting"
     >
       {{ shortInfo }}
@@ -14,10 +14,11 @@ export default {
   computed: {
     shortInfo() {
       let temp;
+      console.log(this.meeting);
       if (this.meeting !== undefined) {
         // should be the meeting without id??
-        const { topic } = this.meeting.meeting;
-        const { start } = this.meeting.meeting;
+        const { topic } = this.meeting;
+        const { start } = this.meeting;
         temp = `${topic}@${start.getHours()}:${start.getMinutes()}`;
       } else {
         temp = '';

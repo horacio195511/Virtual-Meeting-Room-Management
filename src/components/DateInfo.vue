@@ -4,10 +4,11 @@
       <div class="meetings" v-else-if="date === undefined">
         <sim-meet-info
           v-for='meeting in meetings'
-          :key='meeting.id'
+          :key='meeting.topic'
           :meeting='meeting'
           @full-meeting-info="$emit('full-meeting-info', $event)">
         </sim-meet-info>
+        {{ hello }}
       </div>
     </td>
 </template>
@@ -22,9 +23,9 @@ export default {
     SimMeetInfo,
   },
   computed: {
-    style() {
-      if (this.date !== undefined) return 'date';
-      return 'meetings';
+    hello() {
+      console.log(this.meetings);
+      return 1;
     },
   },
 };

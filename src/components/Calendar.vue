@@ -15,96 +15,97 @@
             <tr>
             <DateInfo
               v-for="date in cal[0]"
+              :key="date.id"
               :date='date.number'
-              :key="date.id">
+            >
             </DateInfo>
             </tr>
             <tr>
             <DateInfo
               v-for="date in cal[0]"
               :key="date.id"
-              :meetings="meetings[date.number]"
+              :meetings="meetings[date.number - 1]"
               @full-meeting-info="$emit('full-meeting-info', $event)">
             </DateInfo></tr>
 
             <tr>
             <DateInfo
               v-for="date in cal[1]"
+              :key="date.id"
               :date='date.number'
-              :key="date.id">
+            >
             </DateInfo>
             </tr>
             <tr>
             <DateInfo
               v-for="date in cal[1]"
               :key="date.id"
-              :meetings="meetings[date.number]"
+              :meetings="meetings[date.number - 1]"
               @full-meeting-info="$emit('full-meeting-info', $event)">
             </DateInfo></tr>
 
             <tr>
             <DateInfo
               v-for="date in cal[2]"
+              :key="date.id"
               :date='date.number'
-              :key="date.id">
+            >
             </DateInfo>
             </tr>
             <tr>
             <DateInfo
               v-for="date in cal[2]"
               :key="date.id"
-              :meetings="meetings[date.number]"
+              :meetings="meetings[date.number - 1]"
               @full-meeting-info="$emit('full-meeting-info', $event)">
             </DateInfo></tr>
 
             <tr>
             <DateInfo
               v-for="date in cal[3]"
+              :key="date.id"
               :date='date.number'
-              :key="date.id">
+            >
             </DateInfo>
             </tr>
             <tr>
             <DateInfo
               v-for="date in cal[3]"
               :key="date.id"
-              :meetings="meetings[date.number]"
+              :meetings="meetings[date.number - 1]"
               @full-meeting-info="$emit('full-meeting-info', $event)">
             </DateInfo></tr>
 
             <tr>
             <DateInfo
               v-for="date in cal[4]"
+              :key="date.id"
               :date='date.number'
-              :key="date.id">
+            >
             </DateInfo>
             </tr>
             <tr>
             <DateInfo
               v-for="date in cal[4]"
               :key="date.id"
-              :meetings="meetings[date.number]"
+              :meetings="meetings[date.number - 1]"
               @full-meeting-info="$emit('full-meeting-info', $event)">
             </DateInfo></tr>
         </table>
           <button
             @click="decMonth"
-            class="bottombutton"
-          >
+            class="bottombutton">
             <img
               src="../assets/last.png"
-              class="buttonimage"
-            >
+              class="buttonimage">
           </button>
           {{ currentYear }}/{{ currentMonth }}
           <button
             @click="incMonth"
-            class="bottombutton"
-            >
+            class="bottombutton">
             <img
               src="../assets/next.png"
-              class="buttonimage"
-              >
+              class="buttonimage">
           </button>
     </div>
 </template>
@@ -125,48 +126,57 @@ export default {
       currentYear: this.initialdate.getFullYear(),
       cal: this.calGenerator(this.initialdate),
       // meeting request should be done here
-      meetings: this.meetingRequest(this.initialdate.getFullYear(), this.initialdate.getMonth()),
+      meetings: this.meetingRequest(this.initialdate),
     };
   },
   methods: {
     // since different calendar needs different form of meeting,
     // so the meetingRequest put here
-    meetingRequest(year, month) {
+    async meetingRequest(date) {
       // production usage
-      let meetings;
       const formdata = new FormData();
+      const year = date.getFullYear();
+      const month = date.getMonth();
       formdata.append('year', year);
-      formdata.append('month', month);
+      formdata.append('month', month + 1);
       fetch('http://localhost:7000/test/v1/get_meeting_info_month', {
         method: 'POST',
         body: formdata,
         credentials: 'same-origin',
         mode: 'cors',
-      }).then((response) => {
+      }).then(async (response) => {
         if (!response.ok) {
           throw new Error('fetcht error!!');
         } else {
-          return response.json();
+          const jsonResponse = await response.json();
+          return jsonResponse;
         }
-      }).then((jsonResponse) => {
+      }).then(async (jsonResponse) => {
+        let i = 0;
+        const meetingForCal = new Array(31);
+        for (i = 0; i <= 30; i += 1) {
+          meetingForCal[i] = jsonResponse[i + 1];
+        }
         console.log(jsonResponse);
-        meetings = jsonResponse;
+        console.log(meetingForCal);
+        return meetingForCal;
       }).catch((error) => {
         console.error(error);
       });
-      return meetings;
     },
     incMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() + 1);
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentYear = this.currentDate.getFullYear();
-      this.cal = this.calGenerator(this.currentDate.getFullYear(), this.currentDate.getMonth());
+      this.cal = this.calGenerator(this.currentDate);
+      this.meetings = this.meetingRequest(this.currentDate);
     },
     decMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() - 1);
       this.currentMonth = this.currentDate.getMonth() + 1;
       this.currentYear = this.currentDate.getFullYear();
-      this.cal = this.calGenerator(this.currentDate.getFullYear(), this.currentDate.getMonth());
+      this.cal = this.calGenerator(this.currentDate);
+      this.meetings = this.meetingRequest(this.currentDate);
     },
     calGenerator(date) {
       // render the calendar according to the month

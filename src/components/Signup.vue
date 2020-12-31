@@ -46,7 +46,7 @@ export default {
         const formdata = new FormData();
         formdata.append('name', this.name);
         formdata.append('account', this.account);
-        formdata.append('email', this.email);
+        formdata.append('mail', this.email);
         formdata.append('password', this.password);
         // send the request
         fetch('http://localhost:7000/test/v1/user_create', {
@@ -62,6 +62,8 @@ export default {
         }).then((jsonResponse) => {
           if (jsonResponse.result === 0) {
             alert('signup success');
+          } else {
+            console.log(jsonResponse.result);
           }
         }).catch((error) => {
           console.error(error);

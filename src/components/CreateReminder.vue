@@ -52,7 +52,7 @@ export default {
       formdata.append('end', this.end);
       formdata.append('location', this.location);
       formdata.append('attendee', this.attendees);
-      fetch('http://localhost:7000/test/v1/meeting_create', {
+      fetch('http://localhost:7000/test/v1/google_reminder_create', {
         method: 'POST',
         mode: 'cors',
         credentials: 'same-origin',
