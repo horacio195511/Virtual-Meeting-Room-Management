@@ -99,7 +99,7 @@
               src="../assets/last.png"
               class="buttonimage">
           </button>
-          {{ currentYear }}/{{ currentMonth }}//{{currentDay}}
+          {{ currentYear }}/{{ currentMonth }}/{{currentDay}}
           <button
             @click="incMonth"
             class="bottombutton">
@@ -208,7 +208,7 @@ export default {
       date.setMonth(initMonth);
       date.setDate(initDate);
       // update the meeting list
-      this.meetings = this.meetingRequest(this.currentDate);
+      this.meetings = this.meetingRequest(date);
       return cal;
     },
   },

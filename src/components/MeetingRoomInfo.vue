@@ -173,7 +173,7 @@ export default {
       date.setYear(initYear);
       date.setMonth(initMonth);
       date.setDate(initDate);
-      this.meetings = this.meetingRequest(this.currentDate);
+      this.meetings = this.meetingRequest(date);
       return calWeek;
     },
   },

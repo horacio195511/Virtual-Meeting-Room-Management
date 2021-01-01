@@ -66,7 +66,7 @@ export default {
       // call the api to store the meeting
       // collect data from the from
       // distinguish between edit and create
-      if (this.meeting === undefined) {
+      if (this.meeting.id === undefined) {
         // for create
         const formdata = new FormData();
         formdata.append('topic', this.topic);
@@ -91,7 +91,16 @@ export default {
           if (jsonResponse.result === 0) {
             // operation successful, pass the current data and id to the next component
             console.log(jsonResponse.result);
-            this.$emit('create-reminder');
+            const newMeeting = {
+              id: jsonResponse.id,
+              topic: this.topic,
+              host: this.host,
+              start: this.start,
+              end: this.end,
+              room: this.room,
+              attendee: this.attendee,
+            };
+            this.$emit('create-reminder', newMeeting);
           } else console.log('create fail');
         }).catch((error) => {
           console.error(error);
@@ -121,20 +130,23 @@ export default {
         }).then((jsonResponse) => {
           if (jsonResponse.result === 0) {
             // operation successful,
-          } else console.log('edit success');
+          } else {
+            alert('edit succes !!');
+          }
         }).catch((error) => {
           console.error(error);
         });
       }
     },
     updateValue() {
-      this.topic = this.meeting.topic;
-      this.host = this.meeting.host;
-      this.start = this.meeting.start;
-      this.end = this.meeting.end;
-      this.room = this.meeting.room;
-      this.attendee = this.meeting.attendee;
-      return '';
+      if (this.meeting !== undefined) {
+        this.topic = this.meeting.topic;
+        this.host = this.meeting.host;
+        this.start = this.meeting.start;
+        this.end = this.meeting.end;
+        this.room = this.meeting.room;
+        this.attendee = this.meeting.attendee;
+      }
     },
   },
   computed: {

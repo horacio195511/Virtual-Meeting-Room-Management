@@ -3,32 +3,32 @@
     <h1>Create Reminder</h1>
       <table class="center">
         <tr>
-            <td class="labelright"><label for="topic">主題</label></td>
-            <td class="inputleft"><input id="topic" type="text" v-model="topic"></td>
+            <td class="labelright">主題</td>
+            <td class="inputleft">{{ this.meeting.topic }}</td>
         </tr>
         <tr>
-            <td class="labelright"><label for="host">主持人</label></td>
-            <td class="inputleft"><input id="host" type="text" v-model="host"></td>
+            <td class="labelright">主持人</td>
+            <td class="inputleft">{{ this.meeting.host }}</td>
         </tr>
         <tr>
-            <td class="labelright"><label for="start">開始</label></td>
-            <td class="inputleft"><input id="start" type="datetime-local" v-model="start"></td>
+            <td class="labelright">開始</td>
+            <td class="inputleft">{{ this.meeting.start }}</td>
         </tr>
         <tr>
-            <td class="labelright"><label for="end">結束</label></td>
-            <td class="inputleft"><input id="end" type="datetime-local" v-model="end"></td>
+            <td class="labelright">結束</td>
+            <td class="inputleft">{{ this.meeting.end }}</td>
         </tr>
         <tr>
-            <td class="labelright"><label for="location">會議室</label></td>
-            <td class="inputleft"><input id="location" type="text" v-model="location"></td>
+            <td class="labelright">會議室</td>
+            <td class="inputleft">{{ this.meeting.room }}</td>
         </tr>
         <tr>
-            <td class="labelright"><label for="attendee">參與人</label></td>
-            <td class="inputleft"><input id="attendee" type="text" v-model="attendee"></td>
+            <td class="labelright">參與人</td>
+            <td class="inputleft">{{ this.meeting.attendee }}</td>
         </tr>
         <tr>
             <td class="labelright"><label for="remind">提醒</label></td>
-            <td class="inputleft"><input id="remind" type="datetime-local"></td>
+            <td class="inputleft"><input id="remind" type="text">分鐘前</td>
         </tr>
         <tr>
             <td></td>
@@ -46,12 +46,8 @@ export default {
     create() {
       // sent request to API
       const formdata = new FormData();
-      formdata.append('topic', this.topic);
-      formdata.append('host', this.host);
-      formdata.append('start', this.start);
-      formdata.append('end', this.end);
-      formdata.append('location', this.location);
-      formdata.append('attendee', this.attendees);
+      formdata.append('id', this.meeting.id);
+      formdata.append('reminder_time', this.remind);
       fetch('http://localhost:7000/test/v1/google_reminder_create', {
         method: 'POST',
         mode: 'cors',
@@ -72,48 +68,6 @@ export default {
         console.error(error);
       });
       // go back to info
-    },
-  },
-  computed: {
-    topic() {
-      if (this.meeting !== undefined) {
-        return this.meeting.topic;
-      }
-      return '';
-    },
-    host() {
-      if (this.meeting !== undefined) {
-        return this.meeting.host;
-      }
-      return '';
-    },
-    start() {
-      if (this.meeting !== undefined) {
-        return this.meeting.start;
-      }
-      return '';
-    },
-    end() {
-      if (this.meeting !== undefined) {
-        return this.meeting.end;
-      }
-      return '';
-    },
-    location() {
-      if (this.meeting !== undefined) {
-        return this.meeting.location;
-      }
-      return '';
-    },
-    attendee() {
-      if (this.meeting !== undefined) {
-        let tmp = '';
-        this.meeting.attendee.forEach((element) => {
-          tmp += `${element.user},`;
-        });
-        return tmp;
-      }
-      return '';
     },
   },
 };

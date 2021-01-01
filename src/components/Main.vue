@@ -31,7 +31,7 @@
           :meeting = "selectedMeeting"
           @full-meeting-info = "rightcol = 'FullMeetingInfo'"
           @edit-meeting = "rightcol = 'CreateMeeting'"
-          @create-reminder = "rightcol = 'CreateReminder'"
+          @create-reminder = "createReminder"
           @cancel-meeting = "rightcol = 'CancelMeeting'"
           ></component>
       </div>
@@ -83,7 +83,14 @@ export default {
     },
     createMeeting() {
       // provide an empty form
-      this.selectedMeeting = undefined;
+      this.selectedMeeting = {
+        topic: '',
+        host: '',
+        start: '',
+        end: '',
+        room: '',
+        attendee: '',
+      };
       this.rightcol = 'CreateMeeting';
     },
     changeLeftCol() {
@@ -92,6 +99,10 @@ export default {
       } else {
         this.leftcol = 'Calendar';
       }
+    },
+    createReminder(meeting) {
+      this.rightcol = 'CreateReminder';
+      this.selectedMeeting = meeting;
     },
   },
 };
