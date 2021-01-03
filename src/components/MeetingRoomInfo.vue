@@ -65,7 +65,7 @@
             class="buttonimage"
           >
         </button>
-        {{ currentYear }}//{{ currentMonth }}/{{ currentDay }}
+        {{ currentYear }}/{{ currentMonth }}/{{ currentDay }}
         <button
           @click="incWeek"
           class="bottombutton"

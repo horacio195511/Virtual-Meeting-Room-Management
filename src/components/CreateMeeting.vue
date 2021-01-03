@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>建立會議</h1>
+    <h1>{{ createText }}會議</h1>
     <table class="center">
       <tr>
           <td class="labelright"><label for="topic">主題</label></td>
