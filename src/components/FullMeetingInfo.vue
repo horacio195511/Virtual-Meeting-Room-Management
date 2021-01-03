@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Meeting Information</h1>
+      <h1>會議資訊</h1>
       <table class="center">
         <tr>
           <td class="labelright">主題</td>

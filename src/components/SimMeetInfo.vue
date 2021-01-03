@@ -1,8 +1,7 @@
 <template>
     <h6
       @click="$emit('full-meeting-info', meeting)"
-      class="meeting"
-    >
+      class="meeting">
       {{ shortInfo }}
     </h6>
 </template>

@@ -1,18 +1,11 @@
 <template>
-    <!--button header-->
       <button class="topbutton">
-        <img
-          class="buttonimage"
-          src="../assets/email.png">
+        <img class="buttonimage" src="../assets/email.png">
       </button>
       <button @click="createMeeting" class="topbutton">
-        <img
-        class="buttonimage"
-        src="../assets/createMeeting.png">
+        <img class="buttonimage" src="../assets/createMeeting.png">
       </button>
-      <button @click="changeLeftCol" class="topbutton">
-        切換資訊
-      </button>
+      <button @click="changeLeftCol" class="topbutton">切換資訊</button>
     <!-- 2 column view-->
     <div class="row">
       <div class="column left">
@@ -76,8 +69,6 @@ export default {
   },
   methods: {
     fullMeetingInfo(meeting) {
-      console.log('full info');
-      console.log(meeting);
       this.selectedMeeting = meeting;
       this.rightcol = 'FullMeetingInfo';
     },

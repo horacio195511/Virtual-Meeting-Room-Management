@@ -1,7 +1,7 @@
 <template>
     <!--make it a component-->
     <div>
-        <h1>Meeting Room Information</h1>
+        <h1>會議室資訊</h1>
         <h3>{{ currentMonth }}</h3>
         <table class="calendar">
           <!-- date number column-->

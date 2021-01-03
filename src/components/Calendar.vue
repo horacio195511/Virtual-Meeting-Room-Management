@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>Calendar</h1>
+      <h1>日曆</h1>
         <h3>{{ currentMonth }}</h3>
         <table class='calendar'>
             <tr>

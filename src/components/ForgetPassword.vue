@@ -1,12 +1,16 @@
 <template>
 <div>
+  <h1>重新設定密碼</h1>
   <table class="center">
     <tr>
-      <td><label for="email">email</label></td>
-      <td><input type="email" placeholder="ex:xxx@mail.com" /></td>
+      <td><label for="account">帳號</label></td>
+      <td><input type="text" v-model="account"/></td>
     </tr>
     <tr>
-      <!--not complete yet-->
+      <td><label for="password">新的密碼</label></td>
+      <td><input type="email" v-model="password"/></td>
+    </tr>
+    <tr>
       <td></td>
       <td><button @click="sendPassword">送出</button></td>
     </tr>
@@ -20,12 +24,27 @@ export default {
   methods: {
     sendPassword() {
       const formdata = new FormData();
-      formdata.append('email', this.email);
+      formdata.append('account', this.account);
+      formdata.append('password', this.password);
       fetch('http://localhost:7000/test/v1/send_password', {
         method: 'POST',
         mode: 'cors',
         body: formdata,
         credentials: 'same-origin',
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('Fetch Error!!');
+        }
+        return response.json();
+      }).then((jsonResponse) => {
+        if (jsonResponse.result === 0) {
+          alert('change password success');
+          this.$emit('change-view', 'login');
+        } else {
+          alert('change password fail');
+        }
+      }).catch((error) => {
+        console.error(error);
       });
     },
   },

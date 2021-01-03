@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Creat Meeting</h1>
+    <h1>建立會議</h1>
     <table class="center">
       <tr>
           <td class="labelright"><label for="topic">主題</label></td>
@@ -101,7 +101,7 @@ export default {
               attendee: this.attendee,
             };
             this.$emit('create-reminder', newMeeting);
-          } else console.log('create fail');
+          } else alert('create fail');
         }).catch((error) => {
           console.error(error);
         });
@@ -129,9 +129,10 @@ export default {
           }
         }).then((jsonResponse) => {
           if (jsonResponse.result === 0) {
-            // operation successful,
+            // operation successful, send another meeting request
+            alert('edit success');
           } else {
-            alert('edit succes !!');
+            alert('edit fail');
           }
         }).catch((error) => {
           console.error(error);
@@ -139,19 +140,17 @@ export default {
       }
     },
     updateValue() {
-      if (this.meeting !== undefined) {
-        this.topic = this.meeting.topic;
-        this.host = this.meeting.host;
-        this.start = this.meeting.start;
-        this.end = this.meeting.end;
-        this.room = this.meeting.room;
-        this.attendee = this.meeting.attendee;
-      }
+      this.topic = this.meeting.topic;
+      this.host = this.meeting.host;
+      this.start = this.meeting.start;
+      this.end = this.meeting.end;
+      this.room = this.meeting.room;
+      this.attendee = this.meeting.attendee;
     },
   },
   computed: {
     createText() {
-      if (this.meeting !== undefined) {
+      if (this.meeting.id !== undefined) {
         this.updateValue();
         return '更新';
       }

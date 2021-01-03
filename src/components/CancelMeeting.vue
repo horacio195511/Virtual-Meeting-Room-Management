@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Cancel Meeting</h1>
+      <h1>取消會議</h1>
       <table class="center">
         <tr>
           <td class="labelright">主題</td>
@@ -42,9 +42,9 @@ export default {
         return response.json();
       }).then((jsonResponse) => {
         if (jsonResponse.result === 0) {
-          console.log('cancel success');
+          alert('cancel success');
         } else {
-          console.log('cancel fail');
+          alert('cancel fail');
         }
       }).catch((error) => {
         console.error(error);

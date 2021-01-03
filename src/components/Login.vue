@@ -1,5 +1,6 @@
 <template>
 <div>
+  <h1>登入</h1>
   <table class="center">
     <tr>
       <td><label for="account">帳號</label></td>

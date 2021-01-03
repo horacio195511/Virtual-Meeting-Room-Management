@@ -1,5 +1,6 @@
 <template>
 <div>
+  <h1>註冊</h1>
   <table class="center">
     <tr>
       <td><label for="name">姓名</label></td>
@@ -62,8 +63,9 @@ export default {
         }).then((jsonResponse) => {
           if (jsonResponse.result === 0) {
             alert('signup success');
+            this.$emit('change-view', 'login');
           } else {
-            console.log(jsonResponse.result);
+            alert(jsonResponse.result);
           }
         }).catch((error) => {
           console.error(error);

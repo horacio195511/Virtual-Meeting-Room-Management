@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Create Reminder</h1>
+    <h1>建立提醒</h1>
       <table class="center">
         <tr>
             <td class="labelright">主題</td>
@@ -67,7 +67,6 @@ export default {
       }).catch((error) => {
         console.error(error);
       });
-      // go back to info
     },
   },
 };
